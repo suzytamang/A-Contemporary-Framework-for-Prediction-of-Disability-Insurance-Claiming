@@ -1,0 +1,64 @@
+\documentclass[letter]{article}
+
+%% Language and font encodings
+\usepackage[english]{babel}
+\usepackage[utf8x]{inputenc}
+\usepackage[T1]{fontenc}
+
+%% Sets page size and margins
+\usepackage[a4paper,top=3cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+%% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorinlistoftodos]{todonotes}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+\usepackage{setspace}
+
+
+\title{A Contemporary Framework for Prediction of Disability Insurance Claiming}
+\author{Suzanne Tamang, Amal Harrati, Linda Cantley, David Rehkopf, Mark Cullen}
+
+\begin{document}
+\maketitle
+\doublespacing
+\begin{abstract}
+Enhancing current models for the prediction of disability with a more comprehensive approach may further inform policy and the organizational processes that are associated with disability determination, reimbursement for services and the allocation of national resources. Using the Aluminum Manufacturing Cohort, a rich linked occupational cohort that allows for the consideration of a diverse set of predictors, we take a first step towards developing machine learning models for the prediction of federal disability insurance claiming. Specifically, we will evaluate the prospective predictive performance of alternative linear and non-linear prediction models for disability insurance claiming.  Also, to gain insights into the relative contribution of different types of model variables or `features' -- e.g., age, gender, job specific physical demand, or the long-term use of opioid analgesics -- and identify previously unknown predictors with potentially causal relevance, we will perform feature ablation experiments.  Although we cannot test the generalization of our models for the prediction of Social Security Disability Insurance (SSDI) claiming directly, we can use Medicare enrollment data for individuals in the Aluminum Manufacturing Cohort that are under 65 as a proxy for receipt of SSDI.  Although we are not able to acquire access to Social Security Administration data for the purpose of our analysis, is a goal for our future work that we will continue to pursue with the SSA.
+\newline
+
+\textbf{Proposed Revision:} In lieu of SSDI outcomes from the SSA, our updated proposal provides an alternative strategy to fit our models indirectly to SSA disability insurance endpoints.  Specifically, as a surrogate outcome for SSDI, we will use AMC Medicare enrollment records, which is usually administered within six months of reciept of SSDI.  Although this surrogate endpoint introduces potential biases in the measurement of our key outcome, based on another AMC disability study with the NBER and the SSA, we can assess the amount of incompleteness and potential challenges of generalizing our approach to SSDI outcomes, which is planned in the future.
+\end{abstract}
+\end{abstract}
+
+\section{Relevance to Social Security}
+Disability adjudication requires information on a representative sample of occupations to determine if applicants with functional limitations that result from severe impairments can perform their work requirements.  The Occupational Requirements Survey (ORS)\cite{orsDOL},  was designed to provide critical information on physical and cognitive work requirements for SSA's determination process.  Our work will quantify any improvements in disability insurance claiming prediction, by comparing models with and without addition of ORS modeling features or comparable resources from O*NET; also, other types of predictors that to the best of our knowledge have not been used for disability prediction. Such findings, and improved models for the prediction of disability, are relevant to the equitable and efficient operation of the SSA's disability programs.    
+
+\section{Proposal}
+\subsection{Short Overview}
+While prior studies have identified the types of physical impairments that are most likely to lead to loss of work\cite{rehkopf2017impact} and disability insurance claiming\cite{benitez1999empirical}, there are at least three major limitations to this work that impede progress to reduce the financial burden on the disability insurance program and promote higher levels of employment. First, current approaches to disability assessment are driven by diagnostic and functional criteria that typically do not consider occupational circumstances that shape their work environment\cite{pmid25042994,pmid15157280}. This is despite decades of work that suggest that work ability should be closely connected to the demands of the particular job being performed\cite{rehkopf2017impact}. Secondly, prior analyses have only included a small number of potential predictors due to the data being collected through interview and examination based approaches to data collection\cite{cutler2013health}. Thirdly, prior approaches have used regression modeling frameworks that do not account for clustering of exposures nor take seriously the overfitting of data. 
+
+We will be able to address these three limitations of prior work using the Aluminum Manufacturing Cohort (AMC), which is an occupational cohort of over 200,000 men and women. These include both blue and white collar individuals working in the manufacturing industry and provide a unique opportunity to examine the rich contexts that shaped the lives of US aluminum workers from 1996-2015, especially in relation to their occupational environment, their health and their financial circumstances. Using the AMC data, we will apply a machine learning framework to systematically consider thousands of variables -- i.e., model `features' that represent potential etiologic and actionable factors of interest including: 1) adult health and savings behaviors; 2) occupational class and economic rewards; 3) workload, including physical, psychosocial and cognitive demands; 4) physical environmental hazards of work; 5) and the social context, both in childhood and as adults. 
+
+Machine learning prediction methods have demonstrated their benefit for various applications from medicine to allocating fire and health inspectors in cities\cite{Athey2017}. In lieu of SSDI disability endpoints, which are not feasible to acquire withing our time frame, our project will assess the potential of alternative machine learning prediction methods for employer-based disability insurance.  We also seek to provide insights into the relative contribution of different types of model features such as job specific information on physical and cognitive work demand from the ORS.  
+
+\subsection{Methodology}
+Our framework for developing enhanced disability prediction models considers thousands of variables that represent potential etiologic factors of interest. After extracting our modeling features for each AMC worker in the dataset, we will build worker-level prediction matrices to systematically compare alternative machine learning models for disability prediction.  Specifically, our analysis will include penalized regression, based on L1 and L2 regularization\cite{Ng2004,hastie2007}, decision tree models such as Random Forests and Gradient Boosting Machines\cite{freund96,friedman2000,Breiman01}, and  artificial neural network\cite{Bengio2009,pytorch,Goodfellow2016} methods (i.e., deep learning). 
+
+\subsubsection{Model Training, Tuning and Testing}
+Our prediction sample will be randomly partitioned into a 60:20:20 split.  We will train our prediction models on 60\%, tune model hyperparameters on 20\% and test our prediction models on the final 20\% of the Alcoa workers.  Our main study outcomes will be AUC, sensitivity, specificity, precision and $F$1. This modeling approach will lead to more generalizable and robust model as compared to traditional regression models that are not tested on a separated portion of the data.
+
+\subsection{Data}
+Our study data will draw from the rich linked AMC dataset, which has over a decade of continued investment in data infrastructure development, including numerous key data linkages that have been established.  For example, through their human resource record, AMC workers can be linked with information on work-life, employer health claims, CMS claims, the context of childhood and from information extracted from IRS and SSA databases.  This extends the observation window of Alcoa workers and allows researchers to consider predictors, and outcomes, beyond the period of employment.
+
+AMC workers were provided free disability insurance.  Although we will not be able to access SSA data in the timeframe of our proposed study, we plan to distinguish between work-place disability claiming and SSDI in future work.  As a proxy indicator, we  Worker level information that will be used includes demographic characteristics (sex, age, race, etc.), job level characteristics explicit in human resource records and extracted through O*Net and ORS crosswalk files\cite{onet,orsDOL}, occupational exposures such as high heat and noise, psychosocial demands of the job, healthcare utilization (inpatient, outpatient, drug), short-term and long-term employer insurance claims and work-place injury data.  It may be possible to also integrate work-time accounts providing detailed absenteeism records.  
+
+Due to data access constraints, our work will not be able to directly access SSA data for the prediction of SSDI claiming.  Such an analysis would require us to port our modeling code to the SSA's computing environment and to link our worker-level prediction matrices with SSA data.  However, as noted earlier, we seek to build on an existing research relationships with the SSA to implement the data linkage in the future. 
+
+In lieu of SSA data, we propose to use Medicare enrollment as a surrogate outcome.  In general, a new SSDI recipient would be enrolled in Medicare within six months of receipt. Cases that would be missed by our surrogate outcome are those SSDI recipients that expired before they were enrolled in Medicare. Although we cannot directy use SSA endpoints, current work on the NBER-SSA funded project, `Characterizing Transitions of Work, Health and Disability in a Working Cohort: A Multi-State Approach' will allow us to precisely estimate the proportion of cases that would be missed.
+
+\section{Overlap of Complementarity with Other Funded Research}
+Our proposed project on machine learning prediction methods for disability outcomes is complementary to the National Institute of Aging funded research project, `Disease, Disability and Death in an Aging Workforce' (Award 2R01AG026291-11A1), which apply exploratory analysis methods for identifying previously unknown predictors of potentially causal relevance.  Our project is also complementary to the NBER-SSA funded projects,`Health, Absenteeism and Disability in a Large Working Cohort' and `Characterizing Transitions of Work, Health and Disability in a Working Cohort: A Multi-State Approach'.
+\bibliographystyle{acm}
+\bibliography{disability}
+
+\end{document}
